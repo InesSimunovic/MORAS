@@ -20,6 +20,3 @@ CHIP BitShiftL{
 	Or(a = false, b = in[13], out = out[14]);
 	Or(a = false, b = in[14], out = out[15]);
 }
-//svaki broj pomice se jedno mjesto ulijevo, a na prvo mjesto stavlja se 0
-//false predstavlja 0 koja nam se treba dodati s lijeve strane
-//or se koristi kako bi se sve evaluiralo u 0 koja se dodaje s lijeve strane 
