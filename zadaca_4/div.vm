@@ -1,0 +1,26 @@
+function div 2      // div(N, D)
+
+    push constant 0
+    pop local 0      // Q = O
+    push argument 0
+    pop local 1      // R = N
+
+label LOOP 
+    push local 1       // R
+    push argument 1    // D
+    lt
+    if-goto END    // R < D
+        push local 0   // Q
+        push constant 1 
+        add     // Q + 1
+        pop local 0    // Q = Q + 1
+        push local 1      // R
+        push argument 1   // D 
+        sub       // R - D
+        pop local 1     // R = R - D
+        goto LOOP
+
+// R < D
+label END
+    push local 0
+    return     // return Q

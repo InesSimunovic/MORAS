@@ -1,0 +1,49 @@
+function mid 3
+
+    push argument 0    // a
+    push argument 1    // b
+    gt 
+    if-goto LAB1    // a > b
+        push argument 1    // b
+        push argument 2    // c
+        gt
+        if-goto LAB2    // b > c
+            push argument 1    // b
+            return    // return b
+
+// a > b
+label LAB1
+    push argument 0    // a
+    push argument 2    // c
+    gt
+    if-goto LAB3    // a > c
+        push argument 0    // a
+        return    // return a
+
+// b > c
+label LAB2
+    push argument 0    // a
+    push argument 2    // c
+    gt
+    if-goto LAB4    // a > c
+        push argument 2    // c
+        return    // return c
+
+// a > c
+label LAB3
+    push argument 1    // b
+    push argument 2    // c
+    gt
+    if-goto LAB5    // b > c
+        push argument 2    // c
+        return    // return c
+
+// a > c
+label LAB4
+    push argument 0    // a
+    return    // return a
+
+// b > c
+label LAB5
+    push argument 1    // b
+    return    // return b
