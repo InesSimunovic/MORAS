@@ -1,0 +1,213 @@
+class BST{
+    field Node root;
+    field int size;
+
+    //konstruktor
+    constructor BST new(){
+        let size = 0;
+        return this;
+    }
+	
+	
+	 // velicina
+    method int size(){
+        return size;
+    }
+	
+	
+	// pomocna funkcija za search
+    function Node search_elem(Node troot, int elem){
+        if(troot = null){
+            return null;
+        }
+        if(troot.getKey() = elem){
+            return troot;
+        }
+        if(elem > troot.getKey()){
+            let troot = troot.getRight();
+            return BST.search_elem(troot, elem);
+        }
+        if(elem < troot.getKey()){
+            let troot = troot.getLeft();
+            return BST.search_elem(troot, elem);
+        }
+        return null;
+    }
+	
+
+    // trazenje elementa
+    method Node search(int key){
+        var Node n1;
+        let n1 = BST.search_elem(root, key);
+        return n1;
+    }
+	
+	
+    // dodaje element
+    method void insert(int key){
+        var Node node, parent, r;
+        var int rt_lt;
+		
+        let node = Node.new(key);
+
+        if(root = null){
+            let root = node;
+        }else{
+            let parent = root;
+            while(~(parent = null)){
+                if(key > parent.getKey()){  // idemo desno jer je key veci od parenta
+                    let r = parent;
+                    let parent = parent.getRight();
+                    let rt_lt = 1;
+					
+                }else{   // idemo lijevo jer je key manji
+                    let r = parent;
+                    let parent = parent.getLeft();
+                    let rt_lt = 2;
+                }
+            }
+            do node.setParent(r);
+			
+			// je li lijevi ili desni list od roditelja r
+            if(rt_lt = 1){
+                do r.setRight(node);
+            }
+			if(rt_lt = 2){
+                do r.setLeft(node);
+            }
+        }
+        let size = size + 1;
+        return;
+    }
+
+
+    // brise element
+    method void delete(int key){
+        var Node node, parent, left, right, parent_right;
+        let node = search(key);
+        
+        if(~(node = null)){
+			let left = node.getLeft();		
+            let right = node.getRight();
+            
+            if(~(node = root)){
+                let parent = node.getParent();
+                let parent_right = parent.getRight();
+
+                if(right = null){
+                    if(parent_right = null){
+                        do parent.setLeft(left);
+                    }else{
+                        if(parent_right = node){
+                            do parent.setRight(left);
+                        }else{
+                            do parent.setLeft(left);
+                        }
+                    }
+                    if(~(left = null)){
+                        do left.setParent(parent);
+                    }
+                }else{
+                    if(parent_right = null){
+                        do parent.setLeft(right);
+                    }else{
+                        if(node = parent_right){
+                            do parent.setRight(right);
+                        }else{
+                            do parent.setLeft(right);
+                        }
+                    }
+                    do right.setParent(parent);
+
+                    while(~(right.getLeft() = null)){
+                        let right = right.getLeft();
+                    }
+                  
+                    if(~(left = null)){
+                        do right.setLeft(left);
+                        do left.setParent(right);
+                    }
+                }
+            }else{
+                if(right = null){
+                    if(~(left = null)){
+                        let root = left;
+                    }
+                }else{
+                    if(~(left = null)){
+                        while(~(right.getLeft() = null)){
+                            let right = right.getLeft();
+                        }
+                        do right.setLeft(left);
+                        do left.setParent(right);
+                        let root = right;
+                    }else{
+                        let root = right;
+                    }
+                }
+            }
+            let size = size - 1;
+        }else{
+            do Output.printString("Trazeni element ne postoji u stablu.");
+            do Output.println();
+        }
+        return;
+    }
+	
+	
+    // brise cvorove
+    method void clearNodes(Node troot){
+        var Node lt, rt;
+        if(~(troot = null)){
+            let lt = troot.getLeft();
+            let rt = troot.getRight();
+            do clearNodes(lt);
+			do troot.dispose();
+            do clearNodes(rt);
+        }
+        return;
+    }
+    
+	
+	// brise stablo
+    method void clear(){
+        do clearNodes(root);
+        let root = null;
+        let size = 0;
+        return;
+    }
+	
+	
+	// inorder
+	method void print2(Node troot){
+        if(~(troot = null)){
+            do print2(troot.getLeft());
+            do Output.printInt(troot.getKey());
+            do Output.printString(" ");
+            do print2(troot.getRight());
+        }
+        return;
+    }
+	
+
+    method void print(){
+        do print2(root);
+        do Output.println();
+		do Output.printString("root: ");
+        if(~(root = null)){
+            do Output.printInt(root.getKey());
+        }
+		do Output.println();
+        do Output.printString("size: ");
+        do Output.printInt(size);
+        do Output.println();
+        return;
+    }
+	
+	
+	method void dispose(){
+        do clearNodes(root);
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,21 @@
+class Main{
+    function void main(){
+        var List l;
+		let l = List.new();
+		
+		do l.insertBack(5);
+        do l.insertBack(87);
+        do l.insertBack(6);
+        do l.insertBack(12);
+        do l.insertBack(52);
+        do l.print();
+
+        do l.insertFront(3);
+        do l.insertFront(4);
+        do l.print();
+
+        do l.clear();
+		do l.dispose();
+        return;
+    }
+}

@@ -1,0 +1,107 @@
+class Set{
+    field Vector set;
+    field int size;    
+
+    // konstruktor (vektor kao pozadinska struktura - pohrana podataka)
+    constructor Set new(){
+        let set = Vector.new();
+        let size = 0;
+        return this;
+    }
+	
+	
+	// velicina skupa
+    method int size(){
+        return size;
+    }
+	
+	
+	// vraca indeks trazenog elementa
+    method int elem_pos(int elem){
+        var int i, ssize, temp;
+        let ssize = set.size();
+
+        while(i < ssize){
+            let temp = set.get(i);
+            if(elem = temp){
+                return i;
+            }
+            let i = i + 1;
+        }
+        return -1;
+    }
+	
+	
+	// je li element u skupu
+    method bool exists(int elem){
+        var int pos;
+        let pos = elem_pos(elem);
+
+        if(pos = -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+	
+	
+    // dodavanje elementa
+    method void insert(int elem){
+        if (~(exists(elem))){
+            do set.pushBack(elem);
+            let size = size + 1;
+        }else{
+            do Output.printString("Element vec postoji u skupu.");
+        }
+        return;
+    }
+	
+
+    // brisanje elementa
+    method void delete(int elem){
+        var int pos, pos_plus1, sljedeci;
+        let pos = elem_pos(elem);
+		
+        if(pos = -1){
+            do Output.printString("Element ne postoji u skupu.");
+        }else{
+            if(size = 1){
+                do set.size_minus_1();
+            }else{
+                let pos_plus1 = pos + 1;
+                while(~(pos_plus1 = size)){
+                    let sljedeci = set.get(pos_plus1);
+                    do set.set1(pos, sljedeci);      // postavljamo element nakon obrisanog na prethodni indeks
+                    let pos = pos + 1;
+                    let pos_plus1 = pos + 1;
+                }
+                do set.size_minus_1();
+            }
+        }
+        return;
+    }
+	
+	
+    // brise sve elemente
+    method void clear(){
+        var Vector v;
+        do set.dispose();
+        let v = Vector.new();
+        let set = v;
+        let size = 0;
+        return;
+    }
+	
+	
+    method void print(){
+        do set.print();
+        return;
+    }
+
+    
+    method void dispose(){
+        do set.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

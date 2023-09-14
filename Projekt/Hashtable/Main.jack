@@ -1,0 +1,24 @@
+class Main{
+    function void main(){
+        var Hashtable h;
+        let h = Hashtable.new(7);
+
+        do h.set(7);  // 0
+        do h.set(17);  // 3
+        do h.set(89); // 5
+        do h.set(39);  // 4
+		do h.set(8);  // 1
+		do h.set(37);  // 2
+		do h.set(55);  // 6
+		do h.set(49);  // 0
+		do h.set(24);  // 3
+		do h.set(60);  // 6
+		
+        do h.print();
+		do Output.println();
+		
+		do h.get(3);
+		do h.dispose();
+        return;
+    }
+}

@@ -1,0 +1,153 @@
+class List{
+    field Node head, tail;
+    field int size;
+
+    // konstruktor
+    constructor List new(){
+        let head = null;
+        let tail = null;
+        let size = 0;
+        return this;
+    }
+
+    // dodaje element naprijed
+    method void insertFront(int val){
+        var Node cvor;
+        let cvor = Node.new(val);
+
+        if(head = null){
+            let head = cvor;
+            let tail = cvor;
+        }else{
+            do head.setPrev(cvor);
+            do cvor.setNext(head);
+            do cvor.setPrev(null);
+            let head = cvor;
+        }
+        let size = size + 1;
+        return;
+    }
+
+    // dodaje element na kraj
+    method void insertBack(int val){
+        var Node cvor;
+        let cvor = Node.new(val);
+
+        if(tail = null){
+            let head = cvor;
+            let tail = cvor;
+        }else{
+            do tail.setNext(cvor);
+            do cvor.setNext(null);
+            do cvor.setPrev(tail);
+            let tail = cvor;
+        }
+        let size = size + 1;
+        return;
+    }
+
+
+	// vraca velicinu
+    method int size(){
+        return size;
+    }
+	
+	
+    // vraca head
+    method Node getHead(){
+        return head;
+    }
+
+
+    // vraca tail
+    method Node getTail(){
+        return tail;
+    }
+
+    
+	// brisanje svih cvorova
+    method void clear(){
+        var Node cvor, temp;
+        let cvor = tail;
+
+        while(~(cvor = null)){
+            let temp = cvor.getPrev();
+			do cvor.dispose();
+            let cvor = temp;
+        }
+		let head = null;
+        let tail = null;
+        return;
+    }
+
+
+    method void print(){
+        var Node cvor;
+        let cvor = head;
+		
+        if(cvor = null){
+            do Output.printString("Red je prazan.");
+        }else{
+            while(~(cvor = null)){
+            do Output.printInt(cvor.getValue());
+            do Output.printString(" ");
+            let cvor = cvor.getNext();
+            }
+            do Output.println();
+        }
+        return;
+    }
+	
+	
+	method void removeHead(){
+		var Node A;
+		if(size = 1){
+			do head.dispose();
+			let size = 0;
+			return;
+		}
+		let A = head.getNext();
+		do head.dispose();
+		let head = A;
+		let size = size - 1;
+		return;
+	}
+	
+	
+	// ubacuje cvor na indeks nakon pos
+	method void insert_elem(int elem, int pos){
+		var Node A, novicvor, cvor2;
+        var int i;
+        let A = head;
+		
+        while (i < pos){
+            let A = A.getNext();
+            let i = i + 1;
+        }
+        let novicvor = Node.new(elem);
+
+        do novicvor.setNext(A.getNext());
+        do novicvor.setPrev(A);
+
+        let cvor2 = A.getNext();
+        do cvor2.setPrev(novicvor);
+        do A.setNext(novicvor);
+
+        let size = size + 1;
+        return;
+	}
+	
+	
+	method void dispose(){
+        var Node cvor, temp;
+        let cvor = tail;
+
+        while(~(cvor = null)){
+            let temp = cvor.getPrev();
+			do cvor.dispose();
+            let cvor = temp;
+        }
+        do Memory.deAlloc(this);
+        return;
+    }
+}

@@ -1,0 +1,44 @@
+class Node{
+    field int value;
+    field Node prev, next;
+
+    constructor Node new(int val){
+        let value = val;
+		let prev = null;
+        let next = null;
+        return this;
+    }
+
+
+	method int getValue(){
+        return value;
+    }
+	
+	
+	 method Node getPrev(){
+        return prev;
+    }
+	
+	
+	method Node getNext(){
+        return next;
+    }
+
+    
+	method void setPrev(Node val){
+        let prev = val;
+        return;
+    }
+
+
+    method void setNext(Node val){
+        let next = val;
+        return;
+    }
+	
+	
+	method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    } 
+}

@@ -1,0 +1,98 @@
+class Stack{
+    field Array S;
+    field int size, capacity;
+    
+    // konstruktor
+    constructor Stack new(int c){
+        let S = Array.new(c);
+        let size = 0;
+        let capacity = c;
+        return this;
+    }
+	
+
+	// dodavanje elemenata (na vrh)
+    method void push(int n){
+        var int pos;
+        let size = size + 1;
+
+        if ((size > capacity) | (size = capacity)){
+			do Output.printString("Stog je pun.");
+			do Output.println();
+            let size = size - 1;
+        }
+		else{
+            let pos = size - 1;
+            let S[pos] = n;
+        }
+        return; 
+    }
+
+
+    // izbacivanje elemenata (last in first out)
+    method int pop(){
+        var int del, pos;
+
+        if(size = 0){
+            do Output.printString("Stog je prazan.");
+            do Output.println();
+        }
+		else{
+            let pos = size - 1;
+            let del = S[pos];
+            let size = pos;
+        }
+        return del;
+    }
+	
+
+    // vraca element na vrhu stoga (top)
+    method int peek(){
+        var int pos;
+        let pos = size - 1;
+        return S[pos];  
+    }
+	
+	
+	// velicina
+    method int size(){
+        return size;
+    }
+
+
+    // brise sve elemente iz stoga
+    method void clear(){
+        var Array B;
+        do S.dispose();
+        let B = Array.new(capacity);
+        let S = B;
+        let size = 0;
+        return;
+    }
+	
+	
+    method void print(){
+        var int i;
+        do Output.printString("stack: ");
+        while(i < size){
+            do Output.printInt(S[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.printString("size: ");
+        do Output.printInt(size);
+        do Output.printString(", capacity: ");
+        do Output.printInt(capacity);
+        do Output.println();
+        do Output.println();
+        return;
+    }
+
+
+    method void dispose(){
+        do S.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

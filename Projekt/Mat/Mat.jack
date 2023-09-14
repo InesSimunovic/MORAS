@@ -1,0 +1,380 @@
+class Mat{
+    field Array elementi;
+    field int red, stupac;  // broja redaka i stupaca
+
+
+    // konstruktor
+    constructor Mat new(int n, int m){
+        var int i;
+        var Array arr;
+        
+		let elementi = Array.new(n);
+        let red = n;
+		
+        while(i < n){
+            let arr = Array.new(m);
+            let elementi[i] = arr;
+            let i = i + 1;
+        }
+        let stupac = m;
+        return this;
+    }
+	
+	
+	// npr. Mat(3, 2)
+	
+	//        1  2
+	//		  2  4
+	//		  3  5
+	
+	// elementi = [[1,2], [2,4], [3,5]]
+	
+	
+	// vraca array elemenata matrice (svaki element je jedan red)
+    method Array get_elementi(){
+        return elementi;
+    }
+	
+	
+	// vraca broj redova
+    method int get_red(){
+        return red;
+    }
+
+
+    // vraca broj stupaca
+    method int get_stupac(){
+        return stupac;
+    }
+
+	
+    // postavlja element matrice u red n i stupac m
+	// ustvari popunjavamo array elementi koji je inicijaliziran konstruktorom
+    method void set_value(int elem, int n, int m){
+        var Array arr;
+        if((n < red) & (m < stupac)){
+            let arr = elementi[n];     // redak
+            let arr[m] = elem;         // stupac
+        }else{
+            do Output.printString("Nemoguce.");
+            do Output.println();
+        }
+        return;
+    }
+
+
+    // zbrajanje
+    function Mat add(Mat mat1, Mat mat2){
+		var Mat res;
+        var int i, j, redovi1, redovi2, stupci1, stupci2;
+        var Array elementi1, elementi2, arr1, arr2;
+        
+        let redovi1 = mat1.get_red();
+        let redovi2 = mat2.get_red();
+		
+        let stupci1 = mat1.get_stupac();
+        let stupci2 = mat2.get_stupac();
+		
+        let elementi1 = mat1.get_elementi();
+        let elementi2 = mat2.get_elementi();
+        
+        if((redovi1 = redovi2) & (stupci1 = stupci2)){
+            let res = Mat.new(redovi1, stupci1);
+
+            while(i < redovi1){
+                let arr1 = elementi1[i];
+                let arr2 = elementi2[i];
+				
+                while(j < stupci1){
+                    do res.set_value(arr1[j] + arr2[j], i, j);
+                    let j = j + 1;
+                }
+                let i = i + 1;
+                let j = 0;
+            }
+        }else{
+            do Output.printString("Matrice nemaju jednak broj stupaca ili redaka.");
+        }
+        return res;
+    }
+
+
+    // oduzimanje
+    function Mat sub(Mat mat1, Mat mat2){
+		var Mat res;
+        var int i, j, redovi1, redovi2, stupci1, stupci2;
+        var Array elementi1, elementi2, arr1, arr2;
+        
+        let redovi1 = mat1.get_red();
+        let redovi2 = mat2.get_red();
+		
+        let stupci1 = mat1.get_stupac();
+        let stupci2 = mat2.get_stupac();
+		
+        let elementi1 = mat1.get_elementi();
+        let elementi2 = mat2.get_elementi();
+        
+        if((redovi1 = redovi2) & (stupci1 = stupci2)){
+            let res = Mat.new(redovi1, stupci1);
+
+            while(i < redovi1){
+                let arr1 = elementi1[i];
+                let arr2 = elementi2[i];
+				
+                while(j < stupci1){
+                    do res.set_value(arr1[j] - arr2[j], i, j);
+                    let j = j + 1;
+                }
+                let i = i + 1;
+                let j = 0;
+            }
+        }else{
+            do Output.printString("Matrice nemaju jednak broj stupaca ili redaka.");
+        }
+        return res;
+    }
+
+
+    // trag
+    method int trace(){
+        var int res, i;
+        var Array arr;
+
+        if(stupac = red){
+			while(i < stupac){
+                let arr = elementi[i];
+                let res = res + arr[i];
+                let i = i + 1;
+			}
+        }else{
+            do Output.printString("Matrica nije kvadratna.");
+        }
+        return res;
+    }
+	
+	
+	// transponiranje
+    method Mat tr(){
+        var Mat res;
+        var int i, j, k;
+        var Array arr;
+        let res = Mat.new(stupac, red);
+
+        while(i < red){
+            let arr = elementi[i];
+            while(j < stupac){
+                do res.set_value(arr[j], j, i);
+                let j = j + 1;
+            }
+            let j = 0;
+            let i = i + 1;
+        }
+        return res;
+    }
+	
+
+    // umnozak matrica
+    function Mat prodMat(Mat mat1, Mat mat2){
+		var Mat res;
+        var int i, j, k, redovi1, redovi2, stupci1, stupci2, prod;
+        var Array elementi1, elementi2, arr1, arr2;
+        
+        let redovi1 = mat1.get_red();
+        let redovi2 = mat2.get_red();
+		
+        let stupci1 = mat1.get_stupac();
+        let stupci2 = mat2.get_stupac();
+		
+        let elementi1 = mat1.get_elementi();
+        let elementi2 = mat2.get_elementi();
+
+        if(stupci1 = redovi2){  // jesu li ulancane
+            let res = Mat.new(redovi1, stupci2);
+			
+            while(i < redovi1){
+                let arr1 = elementi1[i];
+                while(j < stupci2){
+                    while(k < redovi2){
+                        let arr2 = elementi2[k];
+                        let prod = prod + Math.multiply(arr1[k], arr2[j]);
+                        let k = k + 1;
+                    }
+                    do res.set_value(prod, i, j);
+                    let prod = 0;
+                    let j = j + 1;
+                    let k = 0;                    
+                }
+                let j = 0;
+                let i = i + 1;
+            }
+        }else{
+			do Output.printstring("Matrice nisu ulancane.");
+            do Output.println();
+        }
+        return res;
+    }
+	
+	
+	// matrica (Mat) puta vektor stupac (Vec)
+    function Vec prodVec(Mat mat1, Vec vec1){
+		var Vec res;
+        var int i, j, prod, dim, redovi1, stupci1;
+        var Array elementi1, arr, vecres, vektor;
+        
+        let redovi1 = mat1.get_red();
+        let stupci1 = mat1.get_stupac();
+        let elementi1 = mat1.get_elementi();
+		
+        let dim = vec1.get_dim();
+        let vektor = vec1.get_vec();
+		
+        let vecres = Array.new(redovi1);
+
+        if(stupci1 = dim){
+			while(i < redovi1){
+                let arr = elementi1[i];
+                while(j < stupci1){
+                    let prod = prod + Math.multiply(arr[j], vektor[j]);
+                    let j = j + 1; 
+                }
+                let vecres[i] = prod;
+                let prod = 0;
+                let j = 0;
+                let i = i + 1;
+            }
+            let res = Vec.new(vecres, redovi1);
+            return res;
+        }else{
+			do Output.printString("Nemoguce.");
+            do Output.println();
+        }
+        return null;
+    }
+	
+	
+	// racuna minor - matricu nastalu izbacivanjem prvog retka i proslijeđenog stupca st
+    method Mat minor(int st){
+        var Mat res;
+        var int i, j;
+		var bool curr_st;
+        var Array arr;
+
+        let curr_st = false;   // ne nalazimo se u stupcu koji treba biti izbacen
+        let i = 1;      // nikad ne trebamo elemente prvog reda jer radimo razvoj po prvom redu
+		                // zato u petlji ne idemo od 0, nego od 1 jer trebamo drugi red itd.
+
+        if((red = 1) & (stupac = 1)){
+            return this;
+        }
+        let res = Mat.new(red - 1, stupac - 1);
+
+        while(i < red){
+            let arr = elementi[i];
+            while(j < stupac){
+                if(~(j = st)){
+                    if(curr_st){
+                        do res.set_value(arr[j], i - 1, j-1);
+                    }else{
+                        do res.set_value(arr[j], i - 1, j);
+                    }
+                }else{
+                    let curr_st = true;       // nalazimo se u stupcu koji treba izbaciti
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+            let curr_st = false;
+            let j = 0;
+        }
+        return res;
+    }
+	
+	
+	// mod
+    function int mod(int x, int y){
+        var int res, temp;
+        if (x < y){
+            let res = x;
+        }else{
+            let temp = Math.divide(x, y);
+            let res = x - Math.multiply(y, temp);
+        }
+        return res;
+    }
+
+
+    // determinanta
+    method int det(){
+        var int i, elem1, elem2, res, znak, mod_res, minor_mat_det;
+        var Array arr, prvi_red;
+        var Mat minor_mat;
+
+        if(red = 2){
+            let arr = elementi[0];
+            let elem1 = arr[0];
+			
+            let arr = elementi[1];
+            let elem2 = arr[1];
+			
+            let res = Math.multiply(elem1, elem2);
+			
+            let elem1 = arr[0];
+            let arr = elementi[0];
+            let elem2 = arr[1];
+
+            return res - Math.multiply(elem1, elem2);
+			
+        }else{ // Laplaceov razvoj
+            let prvi_red = elementi[0];
+
+            while(i < red){
+                let minor_mat = minor(i);
+                let mod_res = Mat.mod(i, 2);    // za predznak 
+                if(mod_res = 0){
+                    let znak = 1;
+                }else{
+                    let znak = -1;
+                }
+                let minor_mat_det = minor_mat_det.det();
+                let res = res + Math.multiply(Math.multiply(znak, minor_mat_det), prvi_red[i]);
+                let i = i + 1;
+            }
+            return res;
+        }
+    }
+
+
+    method void print(){
+		var Array arr;
+        var int i, j;
+		
+        while(i < red){
+            let arr = elementi[i];
+            while(j < stupac){
+                do Output.printInt(arr[j]);
+                do Output.printString(" ");
+                let j = j + 1;
+            }
+            do Output.println();
+            let j = 0;
+            let i = i + 1;
+        }
+        do Output.println();
+		do Output.println();
+        return;
+    }
+	
+	
+	method void dispose(){
+        var Array elem;
+        var int i;
+        while(i < red){
+            let elem = elementi[i];
+            do elem.dispose();
+            let i = i + 1;
+        }
+        do elementi.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

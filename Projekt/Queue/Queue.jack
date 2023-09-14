@@ -1,0 +1,131 @@
+class Queue{
+    field Array A;
+    field int size, capacity, front_index, last_index;        //last_index je jedan iza zadnjeg elementa (leteći)
+
+    // konstruktor
+    constructor Queue new(int n){
+        let A = Array.new(n);
+        let size = 0;
+        let front_index = 0;
+        let last_index = 0;
+        let capacity = n;
+        return this;
+    }
+	
+	
+	// kopira podatke na pocetak reda (pomicanje ulijevo)
+	// ako prvi u redu nije na 0. indeksu mora se shiftati
+    method void shift_elems(){
+        var int i, x;
+
+        if(front_index = last_index){
+            let front_index = 0;
+            let last_index = 0;
+        }
+		else{
+            let x = last_index - front_index;    // koliko mjesta se sve treba pomaknuti u lijevo
+            let x = x + 1;
+            while(i < x){
+                let A[i] = A[front_index];
+                let front_index = front_index + 1;
+				let i = i + 1;
+            }
+            let front_index = 0;
+            let last_index = x - 1;
+        }
+        return;       
+    }
+	
+	
+    // dodaje element
+    method void enqueue(int val){
+        if(last_index = capacity){
+            if(front_index = 0){
+                do Output.printString("Red je pun.");
+                do Output.println();
+            }
+			else{
+                do shift_elems();        // ako prvi u redu nije na 0. indeksu mora se shiftati
+                let A[last_index] = val;
+                let size = size + 1;
+                let last_index = last_index + 1;
+            }
+        }
+		else{
+            let A[last_index] = val;
+            let size = size + 1;
+            let last_index = last_index + 1;
+        }
+        return;
+    }
+
+
+    // brise prvi element (first in - first out)
+    method int dequeue(){
+        var int r;
+
+        if(front_index = last_index){
+            do Output.printString("Red je prazan.");
+            do Output.println();
+        }
+		else{
+            let r = A[front_index];
+            let front_index = front_index + 1;
+        }
+        let size = size - 1;
+		return r;        
+    }
+	
+	
+	// element na vrhu, tj. zadnji dodan element
+    method int peek(){
+        var int pos;
+        let pos = last_index - 1;
+        return A[pos];
+    }
+	
+	
+	// velicina
+    method int size(){
+        return size;
+    }
+	
+	
+	// brise sve elemente
+    method void clear(){
+        var Array B;
+        do A.dispose();
+        let B = Array.new(capacity);
+        let A = B;
+        let size = 0;
+        let front_index = 0;
+        let last_index = 0;
+        return;
+    }
+
+
+    method void print(){
+        var int i;
+        let i = front_index;   
+        do Output.printString("Red: ");
+        
+        while(i < last_index){
+            do Output.printInt(A[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.printString("size: ");
+        do Output.printInt(size);
+        do Output.printString(", capacity: ");
+        do Output.printInt(capacity);
+        return;
+    }
+	
+	
+    method void dispose(){
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

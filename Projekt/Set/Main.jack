@@ -1,0 +1,31 @@
+class Main{
+    function void main(){
+        var Set s;
+        let s = Set.new();
+
+        do s.insert(9);
+        do s.insert(7);
+        do s.insert(14);
+        do s.insert(9);
+        do s.insert(6);
+		do s.insert(4);
+		
+		do Output.println();
+        do s.print();
+		do Output.println();
+		
+        do s.delete(7);
+        do s.print();
+		do Output.println();
+		
+		do s.delete(48);
+		do Output.println();
+		do s.print();
+		do Output.println();
+        do s.clear();
+        //do s.print();
+        do s.dispose();
+        return;
+        
+    }
+}

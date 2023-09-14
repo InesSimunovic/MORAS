@@ -1,0 +1,26 @@
+class Main{
+    function void main(){
+        var Stack s;
+
+        let s = Stack.new(10);
+
+        do s.push(1);
+        do s.push(2);
+        do s.push(3);
+        do s.push(4);
+		do s.push(5);
+		do s.push(6);
+        do s.print();
+
+        do s.pop();
+        do s.pop();
+        do s.print();
+		
+		do Output.printString("Element na vrhu: ");
+        do Output.printInt(s.peek());
+		
+        do s.clear();       
+        do s.dispose();
+        return;
+    }
+}

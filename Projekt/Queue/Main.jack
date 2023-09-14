@@ -1,0 +1,36 @@
+class Main{
+
+    function void main(){
+
+        var Queue q;
+
+        let q = Queue.new(10);
+
+        do q.enqueue(1);
+        do q.enqueue(2);
+        do q.enqueue(3);
+        do q.enqueue(4);
+        do q.enqueue(5);
+		do q.enqueue(6);
+		do q.enqueue(7);
+		do q.print();
+		do Output.println();
+		do Output.println();
+		
+		do Output.printString("element na vrhu: ");
+        do Output.printInt(q.peek());
+        do Output.println();
+		do Output.println();
+		do Output.println();
+        
+        do q.dequeue();
+        do q.dequeue();
+		do q.dequeue();
+        do q.print();
+		
+        do q.clear();
+        do q.dispose();
+        return;
+        
+    }
+}

@@ -1,0 +1,75 @@
+class PQueue{
+	field List Q;
+	
+	constructor PQueue new(){
+		let Q = List.new();
+		return this;
+	}
+	
+	
+	// ubacuje elemente u red sortirano uzlazno (min priority queue)
+	method void enqueue(int val){
+		var Node N;
+		var int i;
+
+		if (Q.size() = 0){
+			do Q.insertFront(val);
+			return;
+		}
+		let N = Q.getHead();
+    
+		while(i < Q.size() - 1){
+			if(N.getValue() > val){
+				do Q.insert_elem(val, i-1);      // ubacuje val prije N jer je N veci od val
+				return;
+			}
+			let N = N.getNext();
+			let i = i + 1;
+		}
+		do Q.insertBack(val); // val je veca od svih vrijednosti u listi pa ide na kraj
+		return;
+	}
+
+
+	method void dequeue(){
+		do Q.removeHead();
+		return;
+	}
+	
+	
+	method int peek(){
+		var Node H;
+		var int p;
+		let H = Q.getHead();
+		let p = H.getValue();
+		return p;
+	}
+	
+	
+	method int size(){
+		return Q.size();
+	}
+	
+	
+	method void clear(){
+		var int i, size;
+		let size = Q.size();
+		while(~(i = size)){
+			do dequeue();
+		}
+		return;
+	}
+	
+	
+	method void print(){
+		do Q.print();
+		return;
+	}
+	
+	
+	method void dispose(){
+		do Q.dispose();
+		do Memory.deAlloc(this);
+		return;
+	}
+}

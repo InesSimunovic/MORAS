@@ -1,0 +1,44 @@
+class Main{
+    function void main(){
+        var Mat mat1, mat2, mat3, mat4;
+
+        let mat1 = Mat.new(3, 3);
+        let mat2 = Mat.new(3, 3);
+
+        do mat1.set_value(1, 0, 0);
+        do mat1.set_value(2, 0, 1);
+        do mat1.set_value(1, 0, 2);
+        do mat1.set_value(1, 1, 0);
+        do mat1.set_value(4, 1, 1);
+        do mat1.set_value(3, 1, 2);
+        do mat1.set_value(2, 2, 0);
+        do mat1.set_value(3, 2, 1);
+        do mat1.set_value(3, 2, 2);
+		
+		do mat1.print();
+		do Output.printString("Trag: ");
+		do Output.printInt(mat1.trace());
+		do Output.println();
+		do Output.println();
+		
+		
+		let mat3 = mat1.tr();
+		do Output.printString("Transponiranje: ");
+		do Output.println();
+        do mat3.print();
+		
+		do mat2.set_value(2, 0, 0);
+        do mat2.set_value(2, 0, 1);
+        do mat2.set_value(4, 0, 2);
+        do mat2.set_value(5, 1, 0);
+        do mat2.set_value(6, 1, 1);
+        do mat2.set_value(3, 1, 2);
+        do mat2.set_value(1, 2, 0);
+        do mat2.set_value(2, 2, 1);
+        do mat2.set_value(1, 2, 2);
+
+        let mat4 = Mat.prodMat(mat1, mat2);
+        do mat4.print();
+		return;
+    }
+}

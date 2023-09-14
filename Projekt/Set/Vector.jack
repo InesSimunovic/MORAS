@@ -1,0 +1,120 @@
+class Vector{
+	field Array V;
+    field int size, capacity;
+
+	
+	// konstruktor
+    constructor Vector new(){
+        let capacity = 1;
+        let size = 0;
+        let V = Array.new(1);
+        return this;
+    }
+	
+	
+	// vraca velicinu vektora
+    method int size(){
+        return size;
+    }
+	
+	
+	method void size_minus_1(){
+		let size = size - 1;
+        return;
+    }
+	
+	
+	// vraca vrijednost vektora na indeksu k
+    method int get(int k){
+        var int val;
+        if(k < size){
+            let val = V[k];
+        }else{
+            do Output.printString("Indeks nije valjan.");
+        }
+        return val;
+    }
+
+
+    // postavlja vrijednost vektora na indeksu k na vrijednost v
+    method void set1(int k, int v){
+        if(k < size){
+            let V[k] = v;
+        }else{
+            do Output.printString("Indeks nije valjan.");
+        }
+        return;
+    }
+	
+	
+	// kapacitet se udvostrucava ukoliko nema dovoljno mjesta za pohranu
+    method void resize(){
+        var int double_cap, i;
+        var Array B;
+
+        let double_cap = Math.multiply(2, capacity);
+        let B = Array.new(double_cap);
+        
+        while(i < capacity){
+            let B[i] = V[i];
+            let i = i + 1;
+        }
+        let capacity = double_cap;
+        do V.dispose();
+        let V = B;
+        return;
+    }
+
+
+    // postavlja element na kraj vektora
+    method void pushBack(int val){
+        var int pos;
+
+        let size = size + 1;
+        let pos = size - 1;
+        if (size > capacity){
+            do resize();
+            let V[pos] = val;
+        }else{
+            let V[pos] = val;
+        }
+        return;
+    }
+
+
+	// brise sve elmente iz vektora
+    method void clear(){
+        var Array B;
+        do V.dispose();
+        let B = Array.new(1);
+        let size = 0;
+        let capacity = 1;
+        let V = B;
+        return;
+    }
+	
+	
+    method void print(){
+        var int i;
+                
+        do Output.printString("skup: ");
+        while(i < size){
+            do Output.printInt(V[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.printString("size: ");
+        do Output.printInt(size);
+        do Output.println();
+        return;
+    }  
+
+
+	// brisanje iz memorije
+	method void dispose(){
+        do V.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+}

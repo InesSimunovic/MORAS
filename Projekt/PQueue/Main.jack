@@ -1,0 +1,25 @@
+class Main{
+	function void main(){
+		var PQueue Q;
+		var int p;
+		let Q = PQueue.new();
+		
+		do Q.enqueue(4);
+		do Q.enqueue(7);
+		do Q.enqueue(8);
+		do Q.enqueue(13);
+		do Q.enqueue(20);
+		do Q.print();
+		do Output.println();
+		
+		let p = Q.peek();
+		do Output.printString("peek: ");
+		do Output.printInt(p);
+		do Output.println();
+		do Output.println();
+		
+		do Q.dequeue();
+		do Q.print();
+		return;
+	}
+}
